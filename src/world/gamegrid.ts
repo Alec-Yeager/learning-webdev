@@ -69,4 +69,10 @@ export class GameGrid {
       throw new RangeError("Coordinates out of bounds");
     }
   }
+
+  movePlayerTo(x: number, y: number): void {
+    this.getTileFlat(this.playerLocation).unsetPlayer();
+    this.getTile(x, y).setPlayer();
+    this.playerLocation = y * this.size + x;
+  }
 }

@@ -1,5 +1,6 @@
 import { Inventory } from "../inventory/index.js";
-export class Player {
+import type { Entity } from "./entity.js";
+export class Player implements Entity {
   inventory: Inventory;
 
   constructor() {
