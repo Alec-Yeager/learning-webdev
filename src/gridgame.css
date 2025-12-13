@@ -1,0 +1,62 @@
+#gamegrid {
+  display: grid;
+  align-items: center;
+  height: 80vmin;
+  width: 80vmin;
+}
+
+#inventory {
+  font-size: 2em;  
+  display: inline;
+  height: 80vmin;
+  width: 20vmin;
+}
+
+.gamediv {
+  box-sizing: border-box;
+  border: 5px solid black;
+  float: left;
+  border-radius: 10px;
+}
+
+.blanktile {
+  background-color: white;
+}
+
+.player {
+  background-color: green;
+  background-image: url("./assets/images/Player.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.tile { 
+  box-sizing: border-box;
+  border: 1px solid black;
+  width: 100%;
+  height: 100%;
+}
+
+.topleft {
+  border-top-left-radius: 5px;
+}
+
+.topright {
+  border-top-right-radius: 5px;
+}
+
+.bottomleft {
+  border-bottom-left-radius: 5px;
+}
+
+.bottomright {
+  border-bottom-right-radius: 5px;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  text-align: center;
+}
