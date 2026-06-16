@@ -1,2 +1,2 @@
 export { GameGrid } from "./gamegrid.js";
-export { Tile } from "./tile.js";
+export { DisplayTile as Tile } from "./displaytile.js";

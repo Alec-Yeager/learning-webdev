@@ -8,12 +8,15 @@
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "es6",
-    "target": "es5",
+    "target": "es2015",
     "types": [],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
     // and npm install -D @types/node
+    
+    // Allows for directory imports:
+    "moduleResolution": "node",
 
     // Other Outputs
     "sourceMap": true,

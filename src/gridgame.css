@@ -1,8 +1,8 @@
 #gamegrid {
   display: grid;
   align-items: center;
-  height: 80vmin;
-  width: 80vmin;
+  max-height: 80vh;
+    max-width: 80vw;
 }
 
 #inventory {
@@ -21,14 +21,31 @@
 
 .blanktile {
   background-color: white;
+  font-size: 0.5em;
 }
 
-.player {
+.grassland {
   background-color: green;
-  background-image: url("./assets/images/Player.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+}
+
+.mountain {
+  background-color: rgb(60, 49, 47);
+}
+
+.peak {
+  background-color: white;
+}
+
+.lowland {
+  background-color: rgb(39, 73, 28);
+}
+
+.water {
+  background-color: rgb(17, 99, 165);
+}
+
+.trench {
+  background-color: blue;
 }
 
 .tile { 
@@ -38,6 +55,14 @@
   height: 100%;
 }
 
+.player {
+  /* background-color: green; */
+  background-image: url("./assets/images/Player.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: 1px solid rgb(162, 38, 162);
+}
 .topleft {
   border-top-left-radius: 5px;
 }

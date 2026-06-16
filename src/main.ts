@@ -29,3 +29,5 @@ window.addEventListener("keydown", (event) => {
   }
   gridGame.movePlayer(dx, dy);
 });
+
+gridGame.startGame();

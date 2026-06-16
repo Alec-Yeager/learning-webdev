@@ -1,29 +1,40 @@
+import type { Point } from "./util/point.js";
 import { GameGrid } from "./world/index.js";
+import { WorldMapGenerator, Zone } from "./world/zone.js";
 
 export class GridGame {
-  grid: GameGrid;
+  gamegrid: GameGrid;
+  playerpos: Point = { x: 0, y: 0 };
+  width: number = 100;
+  height: number = 50;
+  worldmap: Zone;
+
   constructor() {
-    this.grid = new GameGrid(25);
+    this.gamegrid = new GameGrid(this.width, this.height);
+    console.log("Generating world map...");
+    this.worldmap = new WorldMapGenerator().generate(this.width, this.height);
   }
 
   movePlayer(dx: number, dy: number): void {
     // Handle player movement
-    const size = this.grid.size;
-    const currentLocation = this.grid.playerLocation;
-    const currentX = currentLocation % size;
-    const currentY = Math.floor(currentLocation / size);
-    const newX = currentX + dx;
-    const newY = currentY + dy;
+    const newX = this.playerpos.x + dx;
+    const newY = this.playerpos.y + dy;
 
     // Check bounds
-    if (newX < 0 || newX >= size || newY < 0 || newY >= size) {
+    if (newX < 0 || newX >= this.width || newY < 0 || newY >= this.height) {
       return; // Out of bounds, do nothing
     }
 
-    if (this.grid.getTile(newX, newY).entity !== null) {
-      return; // Tile occupied, do nothing for now. This will be combat or interaction later.
-    }
+    this.setPlayerPos(newX, newY);
+  }
 
-    this.grid.movePlayerTo(newX, newY);
+  setPlayerPos(x: number, y: number) {
+    this.playerpos = { x: x, y: y };
+    this.gamegrid.movePlayerTo(x, y);
+  }
+
+  startGame(): void {
+    this.gamegrid.loadZone(this.worldmap);
+    this.setPlayerPos(Math.floor(this.width / 2), Math.floor(this.height / 2));
   }
 }
