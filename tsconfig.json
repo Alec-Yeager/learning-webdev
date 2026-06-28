@@ -16,7 +16,7 @@
     // and npm install -D @types/node
     
     // Allows for directory imports:
-    "moduleResolution": "node",
+    // "moduleResolution": "nodenext",
 
     // Other Outputs
     "sourceMap": true,

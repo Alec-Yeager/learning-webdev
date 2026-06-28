@@ -1,12 +1,12 @@
 import type { Point } from "../util/point.js";
-import { PerlinNoiseGenerator } from "./noise.js";
-import { DisplayTile } from "./displaytile.js";
-import { Tile } from "./tile.js";
-import { Zone } from "./zone.js";
+import { PerlinNoiseGenerator } from "../world/noise.js";
+import { TileView } from "./tileview.js";
+import { Tile } from "../world/tile.js";
+import { Zone } from "../world/zone.js";
 
-export class GameGrid {
+export class ZoneView {
   playerLocation: number;
-  dtiles: DisplayTile[] = [];
+  dtiles: TileView[] = [];
   constructor(
     public readonly width: number,
     public readonly height: number,
@@ -31,58 +31,25 @@ export class GameGrid {
 
     console.log("Generating tiles...");
     for (let i = 0; i < this.width * this.height; i++) {
-      const tile = new DisplayTile();
+      const tile = new TileView();
       this.dtiles.push(tile);
       gridFrag.appendChild(tile.getDiv());
     }
 
     grid.appendChild(gridFrag);
-
-    this.getTileFlat(this.playerLocation).setPlayer();
   }
 
-  getTileFlat(index: number): DisplayTile {
-    if (!(index >= 0 && index < this.width * this.height)) {
-      throw new RangeError("Index out of bounds");
-    }
-    let tile = this.dtiles[index];
-    if (!tile) {
-      throw new Error("Tile not found at index " + index);
-    }
-    return tile;
-  }
-
-  getTile(x: number, y: number): DisplayTile {
+  getTile(x: number, y: number): TileView {
     if (!(x >= 0 && x < this.width && y >= 0 && y < this.height)) {
       throw new RangeError("Coordinates out of bounds");
     }
     try {
-      let tile = this.getTileFlat(y * this.width + x);
+      let tile = this.dtiles[y * this.width + x]!;
       return tile;
     } catch (e) {
       console.error(e);
       throw new RangeError("Coordinates out of bounds");
     }
-  }
-
-  getPointFromIndex(index: number): Point {
-    if (!(index >= 0 && index < this.width * this.height)) {
-      throw new RangeError("Index out of bounds");
-    }
-    return { x: index % this.width, y: Math.floor(index / this.height) };
-  }
-
-  getIndexFromPoint(x: number, y: number): number {
-    if (!(x >= 0 && x < this.width && y >= 0 && y < this.height)) {
-      throw new RangeError("Index out of bounds");
-    }
-    return y * this.width + x;
-  }
-
-  movePlayerTo(x: number, y: number): void {
-    this.getTileFlat(this.playerLocation).unsetPlayer();
-    this.getTile(x, y).setPlayer();
-    this.playerLocation = y * this.width + x;
   }
 
   loadZone(zone: Zone): void {
@@ -97,7 +64,7 @@ export class GameGrid {
   }
 
   setCorners(): void {
-    this.getTileFlat(0).getDiv().classList.add("topleft");
+    this.getTile(0, 0).getDiv().classList.add("topleft");
     this.getTile(this.width - 1, 0)
       .getDiv()
       .classList.add("topright");

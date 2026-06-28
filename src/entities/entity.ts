@@ -19,6 +19,7 @@ export class Entity {
         comp.constructor,
       comp,
     );
+    comp.setEntity(this);
   }
 
   getComponent<T>(ctor: ComponentConstructor<T>): T | undefined {

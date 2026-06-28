@@ -1,24 +1,26 @@
 import type { Entity } from "../entities/entity.js";
-import type { Component } from "./component.js";
+import { Signal } from "../util/observation.js";
+import { Component } from "./component.js";
 
 // This'll be AI and stuff
-export abstract class ControlComponent implements Component {
-  currenthp: number;
-  dead: boolean = false;
+export abstract class ControlComponent extends Component {
   registerAs = ControlComponent;
 
-  constructor(private readonly maxhp: number) {
-    this.currenthp = maxhp;
-  }
-  update(entity: Entity): void {
-    this.dead = this.currenthp <= 0;
+  update(): void {
   }
 
-  receiveDamage(damage: number) {
-    this.currenthp -= damage;
-  }
+}
 
-  heal(hp: number) {
-    this.currenthp = Math.min(this.currenthp + hp, this.maxhp);
-  }
+export class AIControlComponent extends ControlComponent {
+
+}
+
+export class PlayerControlComponent extends ControlComponent {
+
+  turnTaken = new Signal<void>();
+
+  moveLeft = () => { }
+  moveRight = () => { }
+  moveUp = () => { }
+  moveDown = () => { };
 }
